@@ -1,0 +1,18 @@
+<div class="login-container">
+    <div class="login-content">
+        <mat-toolbar class="login-toolbar" color="primary">Login</mat-toolbar>
+        <mat-card>
+            <form [formGroup]="loginForm" novalidate (ngSubmit)="getLink()">
+                <mat-form-field>
+                    <mat-icon matPrefix>person_outline</mat-icon>
+                    <input autofocus type="text" matInput placeholder="Username" formControlName="email">
+                </mat-form-field>
+                <span *ngIf="loginForm.get('email').touched && loginForm.get('email').hasError('required')"
+                      class="mat-error">Required</span>
+                <span *ngIf="loginForm.get('email').touched && loginForm.get('email').hasError('email')"
+                      class="mat-error">Invalid</span>
+                <button type="submit" mat-raised-button color="primary">Login</button>
+            </form>
+        </mat-card>
+    </div>
+</div>
