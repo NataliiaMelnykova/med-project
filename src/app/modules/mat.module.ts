@@ -7,6 +7,9 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
 @NgModule({
@@ -19,6 +22,9 @@ import {MatCardModule} from "@angular/material/card";
     MatInputModule,
     MatIconModule,
     MatCardModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
   exports: [
     MatButtonModule,
@@ -28,6 +34,9 @@ import {MatCardModule} from "@angular/material/card";
     MatInputModule,
     MatIconModule,
     MatCardModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
 
 })

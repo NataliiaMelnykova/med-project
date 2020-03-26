@@ -14,9 +14,9 @@ export class GuestGuard implements CanActivate {
   canActivate(
       next: ActivatedRouteSnapshot,
       state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.authService.isLoggedIn == true) {
+    if (AuthenticationService.isLoggedIn == true) {
       console.warn('Access Denied, Logout before Access This Page!');
-      this.router.navigate(['home']).then();
+      this.authService.navigateHome();
     }
     return true;
   }

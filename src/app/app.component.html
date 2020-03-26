@@ -1,10 +1,28 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>HOME</span>
-    <span class="spacer"></span>
-    <a mat-button routerLink="/register">Register</a>
-    <a mat-button routerLink="/login">Login</a>
-  </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span>HOME</span>
+
+        <span class="spacer"></span>
+
+        <ng-container
+                *ngIf="auth.user | async; then home; else login">
+        </ng-container>
+
+        <ng-template #home>
+            <button mat-button [matMenuTriggerFor]="menu">Patients list</button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item routerLink="/home">Accepted</button>
+                <button mat-menu-item>Item 2</button>
+            </mat-menu>
+
+            <a mat-button (click)="logout()">Logout</a>
+        </ng-template>
+
+        <ng-template #login>
+            <a mat-button routerLink="/login">Login</a>
+        </ng-template>
+
+    </mat-toolbar-row>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
