@@ -4,7 +4,10 @@ import {AngularFireAuth} from "@angular/fire/auth";
 import * as firebase from "firebase";
 import {from} from "rxjs/internal/observable/from";
 import {Router} from "@angular/router";
-import {map} from "rxjs/operators";
+import {map, switchMap} from "rxjs/operators";
+import {AngularFirestore} from "@angular/fire/firestore";
+import {UserModel} from "../models/user-model";
+import {RegionsService} from "./regions.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +16,8 @@ export class AuthenticationService {
   user: Observable<firebase.User>;
 
   constructor(private angularFireAuth: AngularFireAuth,
+              private firestore: AngularFirestore,
+              private regions: RegionsService,
               private ngZone: NgZone,
               private router: Router) {
     this.user = angularFireAuth.authState;
@@ -32,6 +37,28 @@ export class AuthenticationService {
     } else {
       localStorage.removeItem('user');
     }
+  }
+
+  profile(): Observable<UserModel> {
+    return this.regions
+        .list()
+        .pipe(
+            switchMap(regions => this.angularFireAuth
+                .user
+                .pipe(
+                    switchMap(user => this.firestore
+                        .doc<any>(`users/${user.uid}`)
+                        .snapshotChanges()
+                    ),
+                    map(actions => {
+                      let user = actions.payload.data();
+                      return {
+                        ...user,
+                        expert: user.expert.map(r => regions.find(i => +i.id == r))
+                      };
+                    })
+                )
+            ));
   }
 
   /* Sign in */

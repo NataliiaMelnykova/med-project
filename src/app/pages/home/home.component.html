@@ -1,0 +1,12 @@
+<mat-card class="profile">
+    <mat-card-header>
+        <mat-icon matCardAvatar aria-hidden="false">account_box</mat-icon>
+        <mat-card-title>{{user?.firstname}} {{user?.lastname}}</mat-card-title>
+        <mat-card-subtitle>{{user?.email}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-chip-list>
+            <mat-chip color="primary" *ngFor="let region of user?.expert">{{ region.name }}</mat-chip>
+        </mat-chip-list>
+    </mat-card-content>
+</mat-card>
