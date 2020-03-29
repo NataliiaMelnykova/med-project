@@ -1,11 +1,12 @@
 import {Injectable, NgZone} from '@angular/core';
-import {Observable} from "rxjs";
-import {AngularFireAuth} from "@angular/fire/auth";
-import * as firebase from "firebase";
-import {from} from "rxjs/internal/observable/from";
 import {Router} from "@angular/router";
-import {map, switchMap} from "rxjs/operators";
+import {AngularFireAuth} from "@angular/fire/auth";
 import {AngularFirestore} from "@angular/fire/firestore";
+import {BehaviorSubject, Observable} from "rxjs";
+import {map, switchMap} from "rxjs/operators";
+import {from} from "rxjs/internal/observable/from";
+import * as firebase from "firebase";
+
 import {UserModel} from "../models/user-model";
 import {RegionsService} from "./regions.service";
 
@@ -13,15 +14,15 @@ import {RegionsService} from "./regions.service";
   providedIn: 'root'
 })
 export class AuthenticationService {
-  user: Observable<firebase.User>;
+  user: BehaviorSubject<firebase.User> = new BehaviorSubject<firebase.User>(null);
 
   constructor(private angularFireAuth: AngularFireAuth,
               private firestore: AngularFirestore,
               private regions: RegionsService,
               private ngZone: NgZone,
               private router: Router) {
-    this.user = angularFireAuth.authState;
     this.angularFireAuth.authState.subscribe(user => {
+      this.user.next(user);
       AuthenticationService.updateStorage(user);
     })
   }

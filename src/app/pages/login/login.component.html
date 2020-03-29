@@ -1,6 +1,6 @@
 <div class="login-container">
     <div class="login-content">
-        <mat-toolbar class="login-toolbar" color="primary">Login</mat-toolbar>
+        <mat-toolbar class="login-toolbar" color="primary" translate>LOGIN.TITLE</mat-toolbar>
         <mat-progress-bar mode="indeterminate" *ngIf="progress.running"></mat-progress-bar>
         <mat-card>
             <form [formGroup]="loginForm" novalidate (ngSubmit)="getLink()" *ngIf="!progress.running">

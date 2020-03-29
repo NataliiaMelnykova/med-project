@@ -1,0 +1,54 @@
+<div class="mat-elevation-z8 content">
+    <table mat-table matSort [dataSource]="$list">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef translate>TABLE.ID</th>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="age">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header translate>TABLE.AGE</th>
+            <td mat-cell *matCellDef="let element">{{element?.age}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="diagnose_first_date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header translate>TABLE.DIAGNOSE_FIRST_DATE</th>
+            <td mat-cell *matCellDef="let element">
+                {{element?.diagnose_first_date
+                ? (element?.diagnose_first_date | amFromUtc | amDateFormat:"DD.MM.YYYY")
+                : ('TABLE.UNDEFINED_DATE' | translate)}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="last_replacement_therapy_end_date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header translate>TABLE.END_DATE</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.last_replacement_therapy?.end_date
+                ? (element.last_replacement_therapy?.end_date | amFromUtc | amDateFormat:"DD.MM.YYYY")
+                : ('TABLE.UNDEFINED_DATE' | translate)}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="last_replacement_therapy_injection_type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header translate>TABLE.INJECTION_TYPE</th>
+            <td mat-cell *matCellDef="let element">
+                {{'INJECTION_TYPE.' + (element.last_replacement_therapy?.injection_type || 'UNDEFINED') | uppercase | translate}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="last_replacement_therapy_dose">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header translate>TABLE.DOSE</th>
+            <td mat-cell *matCellDef="let element"> {{element.last_replacement_therapy?.dose}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="last_replacement_therapy_producer">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header translate>TABLE.PRODUCER</th>
+            <td mat-cell *matCellDef="let element"> {{element.last_replacement_therapy?.producer}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator pageSize="10" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+</div>

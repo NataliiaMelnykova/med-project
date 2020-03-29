@@ -7,6 +7,7 @@ import {AngularFirestoreModule} from "@angular/fire/firestore";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {MomentModule} from "ngx-moment";
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -28,7 +29,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     AcceptedComponent,
     UnacceptedComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     MatModule,
+    MomentModule,
     TranslateModule.forRoot({
       defaultLanguage: 'ua',
       useDefaultLang: true,

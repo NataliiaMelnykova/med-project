@@ -17,5 +17,11 @@
       "NOT_SENT": "NOT_SENT"
     },
     "EMAIL": "Електронна пошта"
+  },
+  "INJECTION_TYPE": {
+    "UNDEFINED": "Невідомо",
+    "INTRAVENOUSLY": "Внутрішньовенно",
+    "SUBCUTANEOUSLY": "Підшкірно",
+    "INTRAMUSCULAR": "Внутрішньом’язово"
   }
 }

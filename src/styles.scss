@@ -4,4 +4,15 @@
 
 app-root {
 
+  .content {
+    max-width: 95vw;
+
+    table {
+      min-width: 960px;
+
+      tr td {
+        padding-right: 10px;
+      }
+    }
+  }
 }

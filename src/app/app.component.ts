@@ -8,11 +8,12 @@ import {TranslateService} from "@ngx-translate/core";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'medical-service';
 
   constructor(public auth: AuthenticationService) {
-    this.auth.user.subscribe(() => {
-      this.auth.navigateHome();
+    this.auth.user.subscribe((user) => {
+      if (!user) {
+        this.auth.navigateHome();
+      }
     });
   }
 
