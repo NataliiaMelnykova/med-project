@@ -1,25 +1,23 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <span translate routerLink="/home">BUTTONS.HOME</span>
+        <span routerLink="/home">{{'BUTTONS.HOME' | translate}}</span>
 
         <span class="spacer"></span>
 
-        <ng-container
-                *ngIf="auth.user | async; then home; else login">
-        </ng-container>
+        <ng-container *ngIf="auth.user | async; then home; else login"></ng-container>
 
         <ng-template #home>
-            <button mat-button [matMenuTriggerFor]="menu" translate>BUTTONS.LIST</button>
+            <button mat-button [matMenuTriggerFor]="menu">{{'BUTTONS.LIST' | translate}}</button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item routerLink="/patients/accepted" translate>BUTTONS.ACCEPTED</button>
-                <button mat-menu-item routerLink="/patients/unaccepted" translate>BUTTONS.UNACCEPTED</button>
+                <button mat-menu-item routerLink="/patients/accepted">{{'BUTTONS.ACCEPTED' | translate}}</button>
+                <button mat-menu-item routerLink="/patients/unaccepted">{{'BUTTONS.UNACCEPTED'| translate}}</button>
             </mat-menu>
 
-            <button mat-button (click)="logout()" translate>BUTTONS.LOGOUT</button>
+            <button mat-button (click)="logout()">{{'BUTTONS.LOGOUT' | translate}}</button>
         </ng-template>
 
         <ng-template #login>
-            <button mat-button routerLink="/login" translate>BUTTONS.LOGIN</button>
+            <button mat-button routerLink="/login">{{'BUTTONS.LOGIN' | translate}}</button>
         </ng-template>
 
     </mat-toolbar-row>

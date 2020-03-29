@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   constructor(public auth: AuthenticationService) {
     this.auth.user.subscribe((user) => {
       if (!user) {
-        this.auth.navigateHome();
+        // this.auth.navigateHome();
       }
     });
   }

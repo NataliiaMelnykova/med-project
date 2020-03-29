@@ -24,7 +24,16 @@ export class AuthenticationService {
     this.angularFireAuth.authState.subscribe(user => {
       this.user.next(user);
       AuthenticationService.updateStorage(user);
+      if (user) {
+        this.navigateHome();
+      }
     })
+  }
+
+  public get firebaseUserStatus(): Observable<boolean> {
+    return this.angularFireAuth.authState.pipe(
+        map(user => !!user)
+    );
   }
 
   static get isLoggedIn(): boolean {
@@ -41,25 +50,26 @@ export class AuthenticationService {
   }
 
   profile(): Observable<UserModel> {
+    let regions = [];
     return this.regions
         .list()
         .pipe(
-            switchMap(regions => this.angularFireAuth
-                .user
-                .pipe(
-                    switchMap(user => this.firestore
-                        .doc<any>(`users/${user.uid}`)
-                        .snapshotChanges()
-                    ),
-                    map(actions => {
-                      let user = actions.payload.data();
-                      return {
-                        ...user,
-                        expert: user.expert.map(r => regions.find(i => +i.id == r))
-                      };
-                    })
-                )
-            ));
+            switchMap(rs => {
+              regions = rs;
+              return this.angularFireAuth.user
+            }),
+            switchMap(user => this.firestore
+                .doc<any>(`users/${user.uid}`)
+                .snapshotChanges()
+            ),
+            map(actions => {
+              let user = actions.payload.data();
+              return {
+                ...user,
+                expert: user.expert.map(r => regions.find(i => +i.id == r))
+              };
+            })
+        );
   }
 
   /* Sign in */

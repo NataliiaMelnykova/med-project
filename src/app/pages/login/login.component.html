@@ -1,22 +1,22 @@
 <div class="login-container">
     <div class="login-content">
-        <mat-toolbar class="login-toolbar" color="primary" translate>LOGIN.TITLE</mat-toolbar>
+        <mat-toolbar class="login-toolbar" color="primary">{{'LOGIN.TITLE' | translate}}</mat-toolbar>
         <mat-progress-bar mode="indeterminate" *ngIf="progress.running"></mat-progress-bar>
         <mat-card>
             <form [formGroup]="loginForm" novalidate (ngSubmit)="getLink()" *ngIf="!progress.running">
                 <mat-form-field>
                     <mat-icon matPrefix>person_outline</mat-icon>
                     <input matInput type="text"
-                           placeholder="{{ 'LOGIN.EMAIL' | translate }}"
+                           placeholder="{{'LOGIN.EMAIL' | translate}}"
                            formControlName="email">
                 </mat-form-field>
                 <mat-error *ngIf="loginForm.get('email').touched && loginForm.get('email').hasError('required')"
-                           class="mat-error" translate>LOGIN.MESSAGES.REQUIRED
+                           class="mat-error">{{'LOGIN.MESSAGES.REQUIRED' | translate}}
                 </mat-error>
                 <mat-error *ngIf="loginForm.get('email').touched && loginForm.get('email').hasError('email')"
-                           class="mat-error" translate>LOGIN.MESSAGES.INVALID
+                           class="mat-error">{{'LOGIN.MESSAGES.INVALID' | translate}}
                 </mat-error>
-                <button mat-raised-button type="submit" color="primary" translate>BUTTONS.LOGIN</button>
+                <button mat-raised-button type="submit" color="primary">{{'BUTTONS.LOGIN_LINK' | translate}}</button>
             </form>
             <div class="loading">
                 <h3 *ngIf="progress.running">{{ progress.message | translate }}</h3>

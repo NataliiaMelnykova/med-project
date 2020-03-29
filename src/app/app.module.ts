@@ -18,6 +18,7 @@ import {environment} from "../environments/environment";
 import {AcceptedComponent} from './pages/patients/accepted/accepted.component';
 import {UnacceptedComponent} from './pages/patients/unaccepted/unaccepted.component';
 import {HomeComponent} from './pages/home/home.component';
+import {EditPatientComponent} from './pages/patients/edit-patient/edit-patient.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -30,6 +31,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AcceptedComponent,
     UnacceptedComponent,
     HomeComponent,
+    EditPatientComponent,
   ],
   imports: [
     BrowserModule,
