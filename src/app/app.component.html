@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <span>HOME</span>
+        <span translate routerLink="/home">BUTTONS.HOME</span>
 
         <span class="spacer"></span>
 
@@ -9,17 +9,17 @@
         </ng-container>
 
         <ng-template #home>
-            <button mat-button [matMenuTriggerFor]="menu">Patients list</button>
+            <button mat-button [matMenuTriggerFor]="menu" translate>BUTTONS.LIST</button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item routerLink="/patients/accepted">Accepted</button>
-                <button mat-menu-item routerLink="/patients/unaccepted">Unaccepted</button>
+                <button mat-menu-item routerLink="/patients/accepted" translate>BUTTONS.ACCEPTED</button>
+                <button mat-menu-item routerLink="/patients/unaccepted" translate>BUTTONS.UNACCEPTED</button>
             </mat-menu>
 
-            <a mat-button (click)="logout()">Logout</a>
+            <button mat-button (click)="logout()" translate>BUTTONS.LOGOUT</button>
         </ng-template>
 
         <ng-template #login>
-            <a mat-button routerLink="/login">Login</a>
+            <button mat-button routerLink="/login" translate>BUTTONS.LOGIN</button>
         </ng-template>
 
     </mat-toolbar-row>

@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   progress = {
     running: false,
-    message: "Something went wrong"
+    message: "WRONG"
   };
 
   loginForm = this.fb.group({
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (window.location.search.match('sign-in')) {
-      this.status(true, "Last check before login");
+      this.status(true, "CONFIRMING");
       this.auth
           .SignIn()
           .subscribe(() => {
@@ -42,20 +42,20 @@ export class LoginComponent implements OnInit {
   }
 
   getLink() {
-    this.status(true, "Sending login link to email");
+    this.status(true, "SENDING");
     this.auth
         .requestEmail(this.loginForm.get('email').value)
         .subscribe(
             () => {
-              this.status(true, "Check your email for link");
+              this.status(true, "SENT");
             },
             error => {
               console.warn('Error:', error);
-              this.status(false, "Message was not send");
+              this.status(false, "NOT_SENT");
             });
   }
 
   status(running: boolean, message?: string) {
-    this.progress = {running, message};
+    this.progress = {running, message: "LOGIN.MESSAGES." + message};
   }
 }

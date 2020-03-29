@@ -1,0 +1,21 @@
+{
+  "BUTTONS": {
+    "HOME": "Реєстр пацієнтів ПІД",
+    "ACCEPTED": "Підтверджені",
+    "UNACCEPTED": "Не підтверджені",
+    "LOGIN": "Вхід",
+    "LOGOUT": "Вихід"
+  },
+  "LOGIN": {
+    "MESSAGES": {
+      "REQUIRED": "REQUIRED",
+      "INVALID": "INVALID",
+      "WRONG": "WRONG",
+      "CONFIRMING": "CONFIRMING",
+      "SENDING": "SENDING",
+      "SENT": "SENT",
+      "NOT_SENT": "NOT_SENT"
+    },
+    "EMAIL": "Електронна пошта"
+  }
+}

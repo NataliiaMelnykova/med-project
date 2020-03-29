@@ -6,18 +6,20 @@
             <form [formGroup]="loginForm" novalidate (ngSubmit)="getLink()" *ngIf="!progress.running">
                 <mat-form-field>
                     <mat-icon matPrefix>person_outline</mat-icon>
-                    <input autofocus type="text" matInput placeholder="Username" formControlName="email">
+                    <input matInput type="text"
+                           placeholder="{{ 'LOGIN.EMAIL' | translate }}"
+                           formControlName="email">
                 </mat-form-field>
                 <mat-error *ngIf="loginForm.get('email').touched && loginForm.get('email').hasError('required')"
-                           class="mat-error">Email is required
+                           class="mat-error" translate>LOGIN.MESSAGES.REQUIRED
                 </mat-error>
                 <mat-error *ngIf="loginForm.get('email').touched && loginForm.get('email').hasError('email')"
-                           class="mat-error">Invalid of email
+                           class="mat-error" translate>LOGIN.MESSAGES.INVALID
                 </mat-error>
-                <button type="submit" mat-raised-button color="primary">Login</button>
+                <button mat-raised-button type="submit" color="primary" translate>BUTTONS.LOGIN</button>
             </form>
             <div class="loading">
-                <h3 *ngIf="progress.running">{{ progress.message}}</h3>
+                <h3 *ngIf="progress.running">{{ progress.message | translate }}</h3>
             </div>
         </mat-card>
     </div>

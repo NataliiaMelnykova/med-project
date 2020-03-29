@@ -4,6 +4,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AngularFireModule} from "@angular/fire";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -14,6 +17,10 @@ import {environment} from "../environments/environment";
 import {AcceptedComponent} from './pages/patients/accepted/accepted.component';
 import {UnacceptedComponent} from './pages/patients/unaccepted/unaccepted.component';
 import {HomeComponent} from './pages/home/home.component';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -30,9 +37,19 @@ import {HomeComponent} from './pages/home/home.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatModule
+    MatModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'ua',
+      useDefaultLang: true,
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
