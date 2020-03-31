@@ -19,6 +19,8 @@ import {AcceptedComponent} from './pages/patients/accepted/accepted.component';
 import {UnacceptedComponent} from './pages/patients/unaccepted/unaccepted.component';
 import {HomeComponent} from './pages/home/home.component';
 import {EditPatientComponent} from './pages/patients/edit-patient/edit-patient.component';
+import {ViewPatientComponent} from './pages/patients/view-patient/view-patient.component';
+import {MatMomentDateModule} from "@angular/material-moment-adapter";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -32,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UnacceptedComponent,
     HomeComponent,
     EditPatientComponent,
+    ViewPatientComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     MatModule,
     MomentModule,
+    MatMomentDateModule,
     TranslateModule.forRoot({
       defaultLanguage: 'ua',
       useDefaultLang: true,

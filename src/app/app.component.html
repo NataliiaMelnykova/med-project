@@ -7,6 +7,7 @@
         <ng-container *ngIf="auth.user | async; then home; else login"></ng-container>
 
         <ng-template #home>
+            <button mat-button [routerLink]="['/patients/add']">{{'BUTTONS.ADD' | translate}}</button>
             <button mat-button [matMenuTriggerFor]="menu">{{'BUTTONS.LIST' | translate}}</button>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item routerLink="/patients/accepted">{{'BUTTONS.ACCEPTED' | translate}}</button>

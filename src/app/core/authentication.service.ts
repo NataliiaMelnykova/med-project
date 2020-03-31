@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {AngularFirestore} from "@angular/fire/firestore";
 import {BehaviorSubject, Observable} from "rxjs";
-import {map, switchMap} from "rxjs/operators";
+import {filter, map, switchMap, take, tap} from "rxjs/operators";
 import {from} from "rxjs/internal/observable/from";
 import * as firebase from "firebase";
 
@@ -23,10 +23,6 @@ export class AuthenticationService {
               private router: Router) {
     this.angularFireAuth.authState.subscribe(user => {
       this.user.next(user);
-      AuthenticationService.updateStorage(user);
-      if (user) {
-        this.navigateHome();
-      }
     })
   }
 
@@ -36,28 +32,15 @@ export class AuthenticationService {
     );
   }
 
-  static get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null);
-  }
-
-  static updateStorage(user) {
-    if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
-    } else {
-      localStorage.removeItem('user');
-    }
-  }
-
   profile(): Observable<UserModel> {
     let regions = [];
-    return this.regions
-        .list()
+    return this.regions.list()
         .pipe(
             switchMap(rs => {
               regions = rs;
               return this.angularFireAuth.user
             }),
+            filter(user => !!user),
             switchMap(user => this.firestore
                 .doc<any>(`users/${user.uid}`)
                 .snapshotChanges()
@@ -74,6 +57,15 @@ export class AuthenticationService {
 
   /* Sign in */
   requestEmail(email: string): Observable<void> {
+    this.user
+        .pipe(
+            filter(user => !!user),
+            take(1)
+        )
+        .subscribe(() => {
+          this.navigateHome();
+        });
+
     let actionCodeSettings = {
       url: window.location.origin + window.location.pathname + "?sign-in",
       handleCodeInApp: true,
@@ -84,11 +76,8 @@ export class AuthenticationService {
     return from(
         this.angularFireAuth
             .auth
-            .sendSignInLinkToEmail(email, actionCodeSettings))
-        .pipe(map(e => {
-          AuthenticationService.updateStorage(null);
-          return e;
-        }));
+            .sendSignInLinkToEmail(email, actionCodeSettings)
+    );
   }
 
   SignIn(): Observable<firebase.auth.UserCredential> {
@@ -97,11 +86,12 @@ export class AuthenticationService {
             .auth
             .signInWithEmailLink(localStorage.getItem('email'))
     )
-        .pipe(map(e => {
-          AuthenticationService.updateStorage(e.user);
-          this.navigateHome();
-          return e;
-        }));
+        .pipe(
+            tap((user) => {
+              this.user.next(user.user);
+              this.navigateHome();
+            })
+        );
   }
 
   /* Sign out */
@@ -111,17 +101,18 @@ export class AuthenticationService {
             .auth
             .signOut()
     )
-        .pipe(map(e => {
-          AuthenticationService.updateStorage(null);
-          this.navigateHome();
-          return e;
-        }));
+        .pipe(
+            tap(() => {
+              this.user.next(null);
+              this.navigateHome();
+            })
+        );
   }
 
   navigateHome() {
     this.ngZone.run(() => {
       this.router
-          .navigate([AuthenticationService.isLoggedIn ? '/home' : '/login'])
+          .navigate([this.user.getValue() ? '/home' : '/login'])
           .then();
     });
   }

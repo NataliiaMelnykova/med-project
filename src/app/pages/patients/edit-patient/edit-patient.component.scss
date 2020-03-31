@@ -1,0 +1,109 @@
+.form {
+  .field {
+    width: 100%;
+  }
+
+  .group {
+    .mat-radio-button {
+      margin: 0.25em;
+    }
+
+    .mat-radio-button ~ .mat-radio-button {
+      margin-left: 1em;
+    }
+
+    label.block {
+      margin: 0.25em 0;
+      display: block;
+      width: 100%;
+    }
+  }
+
+  .group-full {
+    .mat-radio-button {
+      margin-left: 16px;
+    }
+  }
+}
+
+
+.flexible {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  .row {
+    padding: 1em 0.5em;
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+
+    .col-half {
+      width: 50%;
+    }
+
+    .col-full {
+      width: 100%;
+    }
+
+    .col-half,
+    .col-full {
+      flex-flow: column;
+      display: flex;
+      padding: 0 1.5em;
+      box-sizing: border-box;
+
+      &:first-child .col-half,
+      &:first-child .col-full {
+        padding-left: 0;
+      }
+
+      &:last-child .col-half,
+      &:last-child .col-full {
+        padding-right: 0;
+      }
+    }
+
+    .mat-radio-button .mat-form-field {
+      margin: -0.25em 0;
+    }
+  }
+
+  .padding-b-0 {
+    padding-bottom: 0;
+  }
+
+  .padding-t-0,
+  .row-inner.padding-t-0 {
+    padding-top: 0;
+  }
+
+  .row.row-inner {
+    padding: 1em 0 0.25em;
+
+    .field {
+      //width: auto;
+      padding-right: 1em;
+      overflow: hidden;
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+
+  .align-items {
+    align-items: center;
+  }
+}
+
+.radio-group-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5em 0 1em;
+
+  mat-radio-button {
+    margin: 0.5em;
+  }
+}

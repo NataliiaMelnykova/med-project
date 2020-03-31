@@ -1,15 +1,16 @@
 export interface PatientModel {
   id?: string;
-  esid: string;
   firstname: string;
   lastname: string;
   surname: string;
   sex: "male" | "female";
-  privacy: "full" | "public" | "none";
+  data_analyse: "science" | "full";
   birthday_date: string;
   birthday_city: string;
   birthday_region: string;
-  complicated_family_history: "yes" | "no" | "undefined";
+  living_region: string;
+  living_city: string;
+  family_relates: { [key: string]: string };
 
   age?: number;
   died: string;
@@ -17,9 +18,12 @@ export interface PatientModel {
 
   diagnose_first_date: string;
   diagnose_laboratory_symptom: string;
-  diagnose_first_associated_symptoms_exists: boolean;
-  diagnose_first_associated_symptoms: string[];
-  diagnose: string;
+  diagnose_first_associated_symptoms_known: boolean;
+  diagnose_first_associated_symptoms: Array<{
+    name: string,
+    date: string
+  }>;
+
   diagnose_analyses: {
     igg: number;
     iga: number;
@@ -27,11 +31,13 @@ export interface PatientModel {
     ige: number;
   };
 
+  diagnose: string;
   genes_broken: string;
-  genes_analise_date: string | null;
-  genes_analise_reason: string | null;
-  genes_analise_laboratory: string;
+  genes_analyse_date: string | null;
+  genes_broken_comments: string;
   genes_sequencing_method: string;
+  genes_analyse_reason: string | null;
+  genes_analyse_laboratory: string;
 
   genes_therapy: GeneTherapy[];
   replacement_therapy: ReplacementTherapy[];

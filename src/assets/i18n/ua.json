@@ -4,19 +4,61 @@
     "ACCEPTED": "Підтверджені",
     "UNACCEPTED": "Не підтверджені",
     "LOGIN": "Вхід",
-    "LOGOUT": "Вихід"
+    "LOGOUT": "Вихід",
+    "LOGIN_LINK": "Отримати посилання",
+    "VIEW": "Переглянути",
+    "LIST": "Реєстр пацієнтів",
+    "ADD": "Додати пацієнта"
+  },
+  "TABS": {
+    "GENERAL": "Загальна інформація",
+    "DIAGNOSE": "Шлях до дігнозу",
+    "GENES": "Діагноз ПІД",
+    "GENES_THERAPY": "Генна терапія",
+    "REPLACEMENT_THERAPY": "Замісна імуноглобулінотерапія"
   },
   "LOGIN": {
+    "TITLE": "Вхід у реєстр",
     "MESSAGES": {
-      "REQUIRED": "REQUIRED",
-      "INVALID": "INVALID",
-      "WRONG": "WRONG",
-      "CONFIRMING": "CONFIRMING",
-      "SENDING": "SENDING",
-      "SENT": "SENT",
-      "NOT_SENT": "NOT_SENT"
+      "REQUIRED": "Введіть електронну пошту",
+      "INVALID": "Недійсна електронна пошта",
+      "WRONG": "Упс.. Щось пішло не так",
+      "CONFIRMING": "Підтвердження входу",
+      "SENDING": "Відправлення посилання для входу",
+      "SENT": "Перевірте Вашу пошту",
+      "NOT_SENT": "Повідомлення не надіслано"
     },
     "EMAIL": "Електронна пошта"
+  },
+  "TABLE": {
+    "ID": "Ідентифікатор",
+    "AGE": "Вік",
+    "DIAGNOSE_FIRST_DATE": "Дата першого діагнозу",
+    "END_DATE": "Остання дата завершення",
+    "INJECTION_TYPE": "Спосіб ін'єкції",
+    "DOSE": "Доза",
+    "PRODUCER": "Виробник",
+    "UNDEFINED_DATE": "Невідомо",
+    "ACTIONS": "Дії"
+  },
+  "FORM": {
+    "SEX": "Стать",
+    "MALE": "Чоловіча",
+    "FEMALE": "Жіноча",
+    "DATA_ANALYSE": {
+      "TITLE": "Використання даних",
+      "FULL": "Повне",
+      "SCIENCE": "Науковий аналіз"
+    },
+    "ALIVE": {
+      "TITLE": "Пацієнт",
+      "ALIVE": "Живий",
+      "DIED": "Дата смерті"
+    },
+    "DIAGNOSE_FIRST_ASSOCIATED_SYMPTOMS_KNOWN": {
+      "KNOWN": "Відомі",
+      "UNKNOWN": "Невідомі"
+    }
   },
   "INJECTION_TYPE": {
     "UNDEFINED": "Невідомо",

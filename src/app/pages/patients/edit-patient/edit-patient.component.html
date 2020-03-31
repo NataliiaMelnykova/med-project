@@ -1,0 +1,386 @@
+<div class="container">
+    <mat-tab-group class="mat-elevation-z8"
+                   color="warn"
+                   backgroundColor="primary"
+                   dynamicHeight="true"
+                   mat-align-tabs="center"
+                   [(selectedIndex)]="tab">
+
+        <!-- GENERAL INFO TAB -->
+        <mat-tab label="{{ 'TABS.GENERAL' | translate}}" class="tab-content">
+            <form class="form flexible" [formGroup]="formGroup">
+                <div class="row">
+
+                    <div class="col-half">
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.LASTNAME' | translate}}</mat-label>
+                            <input matInput formControlName="lastname">
+                            <mat-error class="mat-error" *ngIf="hasError('lastname')">
+                                {{'FORM.VALIDATION.' + hasError('lastname') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.FIRSTNAME' | translate}}</mat-label>
+                            <input matInput formControlName="firstname">
+                            <mat-error class="mat-error" *ngIf="hasError('firstname')">
+                                {{'FORM.VALIDATION.' + hasError('firstname') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.SURNAME' | translate}}</mat-label>
+                            <input matInput formControlName="surname">
+                            <mat-error class="mat-error" *ngIf="hasError('surname')">
+                                {{'FORM.VALIDATION.' + hasError('surname') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div class="group">
+                            <label class="block" for="sex">{{'FORM.SEX' | translate}}:</label>
+                            <mat-radio-group aria-label="Select an option" id="sex" formControlName="sex">
+                                <mat-radio-button value="male">
+                                    {{'FORM.MALE' | translate}}
+                                </mat-radio-button>
+                                <mat-radio-button value="female">
+                                    {{'FORM.FEMALE' | translate}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                            <!--                            <mat-error class="mat-error" *ngIf="hasError('sex')">-->
+                            <!--                                {{'FORM.VALIDATION.' + hasError('sex') | uppercase | translate}}-->
+                            <!--                            </mat-error>-->
+                        </div>
+                    </div>
+
+                    <div class="col-half">
+                        <mat-form-field class="field" (click)="birthday_date.open()">
+                            <mat-label>{{'FORM.BIRTHDAY_DATE' | translate}}</mat-label>
+                            <input matInput [matDatepicker]="birthday_date" formControlName="birthday_date" readonly>
+                            <mat-datepicker-toggle matSuffix [for]="birthday_date"></mat-datepicker-toggle>
+                            <mat-datepicker #birthday_date [disabled]="false"></mat-datepicker>
+                            <mat-error class="mat-error" *ngIf="hasError('birthday_date')">
+                                {{'FORM.VALIDATION.' + hasError('birthday_date') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.BIRTHDAY_REGION' | translate}}</mat-label>
+                            <mat-select formControlName="birthday_region">
+                                <mat-option *ngFor="let region of $regions | async"
+                                            [value]="region.id">{{region.name}}</mat-option>
+                            </mat-select>
+                            <mat-error class="mat-error" *ngIf="hasError('birthday_region')">
+                                {{'FORM.VALIDATION.' + hasError('birthday_region') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.BIRTHDAY_CITY' | translate}}</mat-label>
+                            <input matInput formControlName="birthday_city">
+                            <mat-error class="mat-error" *ngIf="hasError('birthday_city')">
+                                {{'FORM.VALIDATION.' + hasError('birthday_city') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div class="group">
+                            <label class="block" for="data_analyse">{{'FORM.DATA_ANALYSE.TITLE' | translate}}:</label>
+                            <mat-radio-group aria-label="Select an option" id="data_analyse"
+                                             formControlName="data_analyse">
+                                <mat-radio-button value="none">
+                                    {{'FORM.DATA_ANALYSE.FULL' | translate}}
+                                </mat-radio-button>
+                                <mat-radio-button value="science">
+                                    {{'FORM.DATA_ANALYSE.SCIENCE' | translate}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                            <!--                            <mat-error class="mat-error" *ngIf="hasError('data_analyse')">-->
+                            <!--                                {{'FORM.VALIDATION.' + hasError('data_analyse') | uppercase | translate}}-->
+                            <!--                            </mat-error>-->
+                        </div>
+                    </div>
+
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                    <div class="col-half">
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.LIVING_REGION' | translate}}</mat-label>
+                            <mat-select formControlName="living_region">
+                                <mat-option *ngFor="let region of $regions | async"
+                                            [value]="region.id">{{region.name}}</mat-option>
+                            </mat-select>
+                            <mat-error class="mat-error" *ngIf="hasError('living_region')">
+                                {{'FORM.VALIDATION.' + hasError('living_region') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-half">
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.LIVING_CITY' | translate}}</mat-label>
+                            <input matInput formControlName="living_city">
+                            <mat-error class="mat-error" *ngIf="hasError('living_city')">
+                                {{'FORM.VALIDATION.' + hasError('living_city') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                    <div class="col-full group-full">
+                        <mat-radio-group formControlName="died" id="alive">
+                            <label for="alive">{{'FORM.ALIVE.TITLE' | translate}}:</label>
+                            <mat-radio-button [value]="null">{{'FORM.ALIVE.ALIVE' | translate}}</mat-radio-button>
+                            <mat-radio-button [value]="diedDate.value" (click)="died.open()">
+                                <mat-form-field class="field">
+                                    <mat-label>{{'FORM.ALIVE.DIED' | translate}}</mat-label>
+                                    <input matInput [matDatepicker]="died" #diedDate readonly>
+                                    <mat-datepicker-toggle matSuffix [for]="died"></mat-datepicker-toggle>
+                                    <mat-datepicker #died [disabled]="false"></mat-datepicker>
+                                    <mat-error class="mat-error" *ngIf="hasError('died')">
+                                        {{'FORM.VALIDATION.' + hasError('died') | uppercase | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                    <div class="col-full">
+                        <label>{{'FORM.FAMILY_RELATES.TITLE' | translate}}:</label>
+                    </div>
+                </div>
+                <div class="row padding-t-0">
+                    <div class="col-half padding-t-0">
+                        <div class="row row-inner padding-t-0 align-items"
+                             *ngFor="let control of familyRelation.controls; index as i"
+                             [formGroup]="familyRelation.controls[i]">
+                            <!--                    <div class="col-half">-->
+                            <mat-form-field class="field">
+                                <mat-label>{{'FORM.FAMILY_RELATES.TYPE' | translate}}</mat-label>
+                                <input type="text" matInput [matAutocomplete]="family_relates_autocomplete"
+                                       formControlName="type">
+                                <mat-error class="mat-error" *ngIf="hasError('type', control)">
+                                    {{'FORM.VALIDATION.' + hasError('type', control) | uppercase | translate}}
+                                </mat-error>
+                                <mat-autocomplete #family_relates_autocomplete="matAutocomplete">
+                                    <mat-option *ngFor="let type of $relativeTypes | async" [value]="type">
+                                        {{type}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <!--                    </div>-->
+                            <!--                    <div class="col-half">-->
+                            <mat-form-field class="field">
+                                <mat-label>{{'FORM.FAMILY_RELATES.ID' | translate}}</mat-label>
+                                <input matInput formControlName="id">
+                            </mat-form-field>
+                            <!--                    </div>-->
+                            <button mat-icon-button aria-label="Add one" color="warn" type="button"
+                                    (click)="removeFamilyRelation(i)">
+                                <mat-icon>remove_circle</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </mat-tab>
+
+        <!-- DIAGNOSE -->
+        <mat-tab label="{{ 'TABS.DIAGNOSE' | translate}}">
+            <form class="form flexible" [formGroup]="formGroup">
+                <div class="row">
+                    <div class="col-half group-half">
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.DIAGNOSE_FIRST_DATE' | translate}}:</mat-label>
+                            <input matInput [matDatepicker]="diagnose_first_date"
+                                   formControlName="diagnose_first_date" (click)="diagnose_first_date.open()"
+                                   readonly>
+                            <mat-datepicker-toggle matSuffix [for]="diagnose_first_date"></mat-datepicker-toggle>
+                            <mat-datepicker #diagnose_first_date [disabled]="false"></mat-datepicker>
+                            <mat-error class="mat-error" *ngIf="hasError('diagnose_first_date')">
+                                {{'FORM.VALIDATION.' + hasError('diagnose_first_date') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.DIAGNOSE_LABORATORY_SYMPTOM' | translate}}</mat-label>
+
+                            <input matInput [matAutocomplete]="diagnose_laboratory_symptom"
+                                   formControlName="diagnose_laboratory_symptom">
+
+                            <mat-autocomplete #diagnose_laboratory_symptom="matAutocomplete">
+                                <mat-option *ngFor="let symptom of $laboratorySymptoms | async"
+                                            [value]="symptom">{{symptom}}</mat-option>
+                            </mat-autocomplete>
+
+                            <mat-error class="mat-error" *ngIf="hasError('diagnose_laboratory_symptom')">
+                                {{'FORM.VALIDATION.' + hasError('diagnose_laboratory_symptom') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div class="group">
+                            <label class="block" for="diagnose_first_associated_symptoms_known">
+                                {{'FORM.DIAGNOSE_FIRST_ASSOCIATED_SYMPTOMS_KNOWN.TITLE' | translate}}:
+                            </label>
+                            <mat-radio-group aria-label="Select an option"
+                                             id="diagnose_first_associated_symptoms_known"
+                                             formControlName="data_analyse">
+                                <mat-radio-button [value]="false">
+                                    {{'FORM.DIAGNOSE_FIRST_ASSOCIATED_SYMPTOMS_KNOWN.UNKNOWN' | translate}}
+                                </mat-radio-button>
+                                <mat-radio-button [value]="true">
+                                    {{'FORM.DIAGNOSE_FIRST_ASSOCIATED_SYMPTOMS_KNOWN.KNOWN' | translate}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                            <!--                            <mat-error class="mat-error" *ngIf="hasError('data_analyse')">-->
+                            <!--                                {{'FORM.VALIDATION.' + hasError('data_analyse') | uppercase | translate}}-->
+                            <!--                            </mat-error>-->
+                        </div>
+
+                        <div class="row row-inner align-items"
+                             *ngFor="let control of diagnoseFirstAssociatedSymptoms.controls; index as i;"
+                             [formGroup]="diagnoseFirstAssociatedSymptoms.controls[i]">
+
+                            <mat-form-field class="field">
+                                <mat-label>{{'FORM.DIAGNOSE_ASSOCIATED_SYMPTOM.NAME' | translate}}</mat-label>
+                                <input type="text" matInput
+                                       [matAutocomplete]="autoDiagnoseFirstAssociatedSymptoms"
+                                       formControlName="name">
+                                <mat-error class="mat-error"
+                                           *ngIf="hasError('name', control)">
+                                    {{'FORM.VALIDATION.' + hasError('name', control) | uppercase | translate}}
+                                </mat-error>
+                                <mat-autocomplete #autoDiagnoseFirstAssociatedSymptoms="matAutocomplete">
+                                    <mat-option *ngFor="let symptom of $associatedSymptoms | async"
+                                                [value]="symptom">
+                                        {{symptom}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+
+                            <mat-form-field class="field">
+                                <mat-label>{{'FORM.DIAGNOSE_ASSOCIATED_SYMPTOM.DATE' | translate}}:</mat-label>
+                                <input matInput [matDatepicker]="diagnoseSymptomDate"
+                                       formControlName="date" (click)="diagnoseSymptomDate.open()" readonly>
+                                <mat-datepicker-toggle matSuffix
+                                                       [for]="diagnoseSymptomDate"></mat-datepicker-toggle>
+                                <mat-datepicker #diagnoseSymptomDate [disabled]="false"></mat-datepicker>
+                                <mat-error class="mat-error" *ngIf="hasError('date', control)">
+                                    {{'FORM.VALIDATION.' + hasError('date', control) | uppercase | translate}}
+                                </mat-error>
+                            </mat-form-field>
+
+                            <button mat-icon-button aria-label="Add one" color="warn" type="button"
+                                    (click)="removeDiagnoseFirstAssociatedSymptoms(i)">
+                                <mat-icon>remove_circle</mat-icon>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-half" formGroupName="diagnose_analyses">
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.IGG' | translate}}</mat-label>
+                            <input matInput formControlName="igg" type="number" step="0.01">
+                            <mat-error class="mat-error" *ngIf="hasError('diagnose_analyses.igg')">
+                                {{'FORM.VALIDATION.' + hasError('diagnose_analyses.igg') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.IGA' | translate}}</mat-label>
+                            <input matInput formControlName="iga" type="number" step="0.01">
+                            <mat-error class="mat-error" *ngIf="hasError('diagnose_analyses.iga')">
+                                {{'FORM.VALIDATION.' + hasError('diagnose_analyses.iga') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.IGM' | translate}}</mat-label>
+                            <input matInput formControlName="igm" type="number" step="0.01">
+                            <mat-error class="mat-error" *ngIf="hasError('diagnose_analyses.igm')">
+                                {{'FORM.VALIDATION.' + hasError('diagnose_analyses.igm') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.IGE' | translate}}</mat-label>
+                            <input matInput formControlName="ige" type="number" step="0.01">
+                            <mat-error class="mat-error" *ngIf="hasError('diagnose_analyses.ige')">
+                                {{'FORM.VALIDATION.' + hasError('diagnose_analyses.ige') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+            </form>
+        </mat-tab>
+
+        <!-- GENES -->
+        <mat-tab label="{{ 'TABS.GENES' | translate}}">
+            <form class="form flexible" [formGroup]="formGroup">
+                <div class="row padding-b-0">
+                    <div class="col-half">
+                        <div class="field">
+                            <label for="genes_broken">{{ 'FORMS.GENES_BROKEN' | translate}}</label>
+                            <mat-radio-group id="genes_broken"
+                                             class="radio-group-list" formControlName="genes_broken">
+                                <mat-radio-button *ngFor="let genes of $brokenGenes | async" [value]="genes">
+                                    {{genes}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <mat-form-field class="field" (click)="genes_analyse_date.open()">
+                            <mat-label>{{'FORM.GENES_ANALYSE_DATE' | translate}}</mat-label>
+                            <input matInput [matDatepicker]="genes_analyse_date" formControlName="genes_analyse_date"
+                                   readonly>
+                            <mat-datepicker-toggle matSuffix [for]="genes_analyse_date"></mat-datepicker-toggle>
+                            <mat-datepicker #genes_analyse_date [disabled]="false"></mat-datepicker>
+                            <mat-error class="mat-error" *ngIf="hasError('genes_analyse_date')">
+                                {{'FORM.VALIDATION.' + hasError('genes_analyse_date') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.GENES_BROKEN_COMMENTS' | translate}}</mat-label>
+                            <textarea matInput rows="3" placeholder="..."
+                                      formControlName="genes_broken_comments"></textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-half">
+                        <div class="field">
+                            <label for="genes_sequencing_method">{{ 'FORMS.GENES_SEQUENCING_METHOD' | translate}}</label>
+                            <mat-radio-group id="genes_sequencing_method"
+                                             class="radio-group-list" formControlName="genes_sequencing_method">
+                                <mat-radio-button *ngFor="let item of $genesSequencingMethod | async" [value]="item">
+                                    {{item}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="field">
+                            <label for="genes_sequencing_method">{{ 'FORMS.GENES_ANALISE_REASON' | translate}}</label>
+                            <mat-radio-group id="genes_analise_reason"
+                                             class="radio-group-list" formControlName="genes_analise_reason">
+                                <mat-radio-button *ngFor="let item of $genesAnalyseReason | async" [value]="item">
+                                    {{item}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row">
+
+                </div>
+            </form>
+        </mat-tab>
+        <mat-tab label="{{ 'TABS.GENES_THERAPY' | translate}}"> Content 4</mat-tab>
+        <mat-tab label="{{ 'TABS.REPLACEMENT_THERAPY' | translate}}"> Content 5</mat-tab>
+    </mat-tab-group>
+</div>

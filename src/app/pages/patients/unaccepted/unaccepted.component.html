@@ -2,17 +2,22 @@
     <table mat-table matSort [dataSource]="$list">
 
         <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef translate>TABLE.ID</th>
+            <th mat-header-cell *matHeaderCellDef>{{'TABLE.ID' | translate}}</th>
             <td mat-cell *matCellDef="let element">{{element.id}}</td>
         </ng-container>
 
         <ng-container matColumnDef="age">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header translate>TABLE.AGE</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'TABLE.AGE' | translate}}</th>
             <td mat-cell *matCellDef="let element">{{element?.age}}</td>
         </ng-container>
 
+        <ng-container matColumnDef="diagnose">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'TABLE.DIAGNOSE' | translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element?.diagnose}}</td>
+        </ng-container>
+
         <ng-container matColumnDef="diagnose_first_date">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header translate>TABLE.DIAGNOSE_FIRST_DATE</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'TABLE.DIAGNOSE_FIRST_DATE' | translate}}</th>
             <td mat-cell *matCellDef="let element">
                 {{element?.diagnose_first_date
                 ? (element?.diagnose_first_date | amFromUtc | amDateFormat:"DD.MM.YYYY")
@@ -21,7 +26,7 @@
         </ng-container>
 
         <ng-container matColumnDef="last_replacement_therapy_end_date">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header translate>TABLE.END_DATE</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'TABLE.END_DATE' | translate}}</th>
             <td mat-cell *matCellDef="let element">
                 {{element.last_replacement_therapy?.end_date
                 ? (element.last_replacement_therapy?.end_date | amFromUtc | amDateFormat:"DD.MM.YYYY")
@@ -30,20 +35,30 @@
         </ng-container>
 
         <ng-container matColumnDef="last_replacement_therapy_injection_type">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header translate>TABLE.INJECTION_TYPE</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'TABLE.INJECTION_TYPE' | translate}}</th>
             <td mat-cell *matCellDef="let element">
                 {{'INJECTION_TYPE.' + (element.last_replacement_therapy?.injection_type || 'UNDEFINED') | uppercase | translate}}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="last_replacement_therapy_dose">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header translate>TABLE.DOSE</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'TABLE.DOSE' | translate}}</th>
             <td mat-cell *matCellDef="let element"> {{element.last_replacement_therapy?.dose}} </td>
         </ng-container>
 
         <ng-container matColumnDef="last_replacement_therapy_producer">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header translate>TABLE.PRODUCER</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'TABLE.PRODUCER' | translate}}</th>
             <td mat-cell *matCellDef="let element"> {{element.last_replacement_therapy?.producer}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>{{'TABLE.ACTIONS' | translate}}</th>
+            <td mat-cell *matCellDef="let element">
+                <a mat-icon-button [routerLink]="['/patients/id/', element.id, 'edit']"
+                   matTooltip="{{'BUTTONS.VIEW' | translate}}">
+                    <mat-icon>visibility</mat-icon>
+                </a>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
