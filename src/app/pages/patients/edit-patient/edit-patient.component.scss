@@ -74,9 +74,8 @@
     padding-bottom: 0;
   }
 
-  .padding-t-0,
-  .row-inner.padding-t-0 {
-    padding-top: 0;
+  .padding-t-0 {
+    padding-top: 0 !important;
   }
 
   .row.row-inner {

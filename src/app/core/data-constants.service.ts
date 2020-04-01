@@ -1,17 +1,18 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from "rxjs";
+import {NameValueModel} from "../models/name-value-model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataConstantsService {
   private relative_types = [
-    'father',
-    'mother',
-    'sister',
-    'brother',
-    'male_relative',
-    'female_relative',
+    {value: 'mother', name: "Мати"},
+    {value: 'father', name: "Батько"},
+    {value: 'sister', name: "Сестра"},
+    {value: 'brother', name: "Брат"},
+    {value: 'father_relative', name: "Родич по маминій лінії"},
+    {value: 'mother_relative', name: "Родич по батьковій лінії"},
   ];
 
   private laboratory_symptoms = [
@@ -47,16 +48,16 @@ export class DataConstantsService {
   ];
 
   private analyse_reason = [
-      'Специфічні клінічні симптоми',
-      'Сімейний скринінг',
-      'Пренатальна діагностика',
-      'Невідомо'
+    'Специфічні клінічні симптоми',
+    'Сімейний скринінг',
+    'Пренатальна діагностика',
+    'Невідомо'
   ];
 
   constructor() {
   }
 
-  public familyRelationTypes(): Observable<string[]> {
+  public familyRelationTypes(): Observable<NameValueModel[]> {
     return of(this.relative_types);
   }
 

@@ -6,6 +6,9 @@ import {RegionsService} from "../../../core/regions.service";
 import {RegionModel} from "../../../models/region-model";
 import {DataConstantsService} from "../../../core/data-constants.service";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {LaboratoriesService} from "../../../core/laboratories.service";
+import {DiagnosesService} from "../../../core/diagnoses.service";
+import {NameValueModel} from "../../../models/name-value-model";
 
 @Component({
   selector: 'app-edit-patient',
@@ -18,12 +21,14 @@ export class EditPatientComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   public $regions: Observable<RegionModel[]>;
-  public $relativeTypes: Observable<string[]>;
+  public $relativeTypes: Observable<NameValueModel[]>;
   public $laboratorySymptoms: Observable<string[]>;
   public $associatedSymptoms: Observable<string[]>;
   public $brokenGenes: Observable<string[]>;
   public $genesSequencingMethod: Observable<string[]>;
   public $genesAnalyseReason: Observable<string[]>;
+  public $laboratories: Observable<{ id: string, name: string }[]>;
+  public $diagnoses: Observable<{ id: string, name: string }[]>;
 
   public formGroup = this.formBuilder.group({
     // General data
@@ -37,6 +42,7 @@ export class EditPatientComponent implements OnInit {
     birthday_region: [null, [Validators.required]],
     living_region: [null, [Validators.required]],
     living_city: [null, []],
+    family_relates_knows: [null, [Validators.required]],
     family_relates: this.formBuilder.array([]),
     died: [null, []],
     // Symptoms
@@ -62,6 +68,8 @@ export class EditPatientComponent implements OnInit {
 
   constructor(private regionsService: RegionsService,
               private dataConstantsService: DataConstantsService,
+              private laboratoriesService: LaboratoriesService,
+              private diagnosesService: DiagnosesService,
               private formBuilder: FormBuilder) {
   }
 
@@ -73,6 +81,8 @@ export class EditPatientComponent implements OnInit {
     this.$brokenGenes = this.dataConstantsService.brokenGenes();
     this.$genesSequencingMethod = this.dataConstantsService.genesSequencingMethod();
     this.$genesAnalyseReason = this.dataConstantsService.analyseReason();
+    this.$laboratories = this.laboratoriesService.list();
+    this.$diagnoses = this.diagnosesService.list();
 
     this.initForm();
   }
@@ -101,7 +111,7 @@ export class EditPatientComponent implements OnInit {
   addFamilyRelation() {
     this.familyRelation.push(this.formBuilder.group({
       type: [null, [Validators.required]],
-      id: [null, []]
+      id: [null, [Validators.required]]
     }));
   }
 

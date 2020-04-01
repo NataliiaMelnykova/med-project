@@ -4,12 +4,13 @@ export interface PatientModel {
   lastname: string;
   surname: string;
   sex: "male" | "female";
-  data_analyse: "science" | "full";
+  data_analyse: "science" | "full" | "none";
   birthday_date: string;
   birthday_city: string;
   birthday_region: string;
   living_region: string;
   living_city: string;
+  family_relates_knows: string;
   family_relates: { [key: string]: string };
 
   age?: number;

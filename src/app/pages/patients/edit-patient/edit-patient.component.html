@@ -46,9 +46,6 @@
                                     {{'FORM.FEMALE' | translate}}
                                 </mat-radio-button>
                             </mat-radio-group>
-                            <!--                            <mat-error class="mat-error" *ngIf="hasError('sex')">-->
-                            <!--                                {{'FORM.VALIDATION.' + hasError('sex') | uppercase | translate}}-->
-                            <!--                            </mat-error>-->
                         </div>
                     </div>
 
@@ -86,11 +83,14 @@
                             <label class="block" for="data_analyse">{{'FORM.DATA_ANALYSE.TITLE' | translate}}:</label>
                             <mat-radio-group aria-label="Select an option" id="data_analyse"
                                              formControlName="data_analyse">
-                                <mat-radio-button value="none">
+                                <mat-radio-button value="full">
                                     {{'FORM.DATA_ANALYSE.FULL' | translate}}
                                 </mat-radio-button>
                                 <mat-radio-button value="science">
                                     {{'FORM.DATA_ANALYSE.SCIENCE' | translate}}
+                                </mat-radio-button>
+                                <mat-radio-button value="none">
+                                    {{'FORM.DATA_ANALYSE.NONE' | translate}}
                                 </mat-radio-button>
                             </mat-radio-group>
                             <!--                            <mat-error class="mat-error" *ngIf="hasError('data_analyse')">-->
@@ -147,34 +147,42 @@
                 </div>
                 <mat-divider></mat-divider>
                 <div class="row">
-                    <div class="col-full">
-                        <label>{{'FORM.FAMILY_RELATES.TITLE' | translate}}:</label>
+                    <div class="col-half">
+                        <div class="field">
+                            <label for="family_relates_knows">{{ 'FORM.FAMILY_RELATES_KNOWS.TITLE' | translate}}</label>
+                            <mat-radio-group id="family_relates_knows"
+                                             class="radio-group-list" formControlName="family_relates_knows">
+                                <mat-radio-button *ngFor="let item of ['yes', 'no', 'unknown']" [value]="item">
+                                    {{ 'FORM.FAMILY_RELATES_KNOWS.' + item | uppercase | translate}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
                     </div>
-                </div>
-                <div class="row padding-t-0">
-                    <div class="col-half padding-t-0">
+
+                    <div class="col-half padding-t-0" *ngIf="formGroup.get('family_relates_knows').value === 'yes'">
+                        <!--                        <label>{{'FORM.FAMILY_RELATES.TITLE' | translate}}:</label>-->
                         <div class="row row-inner padding-t-0 align-items"
-                             *ngFor="let control of familyRelation.controls; index as i"
-                             [formGroup]="familyRelation.controls[i]">
+                             *ngFor="let control of familyRelation.controls; index as i" [formGroup]="control">
                             <!--                    <div class="col-half">-->
                             <mat-form-field class="field">
                                 <mat-label>{{'FORM.FAMILY_RELATES.TYPE' | translate}}</mat-label>
-                                <input type="text" matInput [matAutocomplete]="family_relates_autocomplete"
-                                       formControlName="type">
+                                <mat-select formControlName="type">
+                                    <mat-option *ngFor="let type of $relativeTypes | async" [value]="type.value">
+                                        {{type.name}}
+                                    </mat-option>
+                                </mat-select>
                                 <mat-error class="mat-error" *ngIf="hasError('type', control)">
                                     {{'FORM.VALIDATION.' + hasError('type', control) | uppercase | translate}}
                                 </mat-error>
-                                <mat-autocomplete #family_relates_autocomplete="matAutocomplete">
-                                    <mat-option *ngFor="let type of $relativeTypes | async" [value]="type">
-                                        {{type}}
-                                    </mat-option>
-                                </mat-autocomplete>
                             </mat-form-field>
                             <!--                    </div>-->
                             <!--                    <div class="col-half">-->
                             <mat-form-field class="field">
                                 <mat-label>{{'FORM.FAMILY_RELATES.ID' | translate}}</mat-label>
                                 <input matInput formControlName="id">
+                                <mat-error class="mat-error" *ngIf="hasError('id', control)">
+                                    {{'FORM.VALIDATION.' + hasError('id', control) | uppercase | translate}}
+                                </mat-error>
                             </mat-form-field>
                             <!--                    </div>-->
                             <button mat-icon-button aria-label="Add one" color="warn" type="button"
@@ -364,9 +372,9 @@
                         </div>
 
                         <div class="field">
-                            <label for="genes_sequencing_method">{{ 'FORMS.GENES_ANALISE_REASON' | translate}}</label>
-                            <mat-radio-group id="genes_analise_reason"
-                                             class="radio-group-list" formControlName="genes_analise_reason">
+                            <label for="genes_analyse_reason">{{ 'FORMS.GENES_ANALYSE_REASON' | translate}}</label>
+                            <mat-radio-group id="genes_analyse_reason"
+                                             class="radio-group-list" formControlName="genes_analyse_reason">
                                 <mat-radio-button *ngFor="let item of $genesAnalyseReason | async" [value]="item">
                                     {{item}}
                                 </mat-radio-button>
@@ -376,7 +384,30 @@
                 </div>
                 <mat-divider></mat-divider>
                 <div class="row">
-
+                    <div class="col-half">
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.GENES_ANALYSE_LABORATORY' | translate}}</mat-label>
+                            <mat-select formControlName="genes_analyse_laboratory">
+                                <mat-option *ngFor="let item of $laboratories | async"
+                                            [value]="item.id">{{item.name}}</mat-option>
+                            </mat-select>
+                            <mat-error class="mat-error" *ngIf="hasError('genes_analyse_laboratory')">
+                                {{'FORM.VALIDATION.' + hasError('genes_analyse_laboratory') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-half">
+                        <mat-form-field class="field">
+                            <mat-label>{{'FORM.DIAGNOSE_CATEGORIES' | translate}}</mat-label>
+                            <mat-select formControlName="genes_analyse_laboratory">
+                                <mat-option *ngFor="let item of $diagnoses | async"
+                                            [value]="item.id">{{item.name}}</mat-option>
+                            </mat-select>
+                            <mat-error class="mat-error" *ngIf="hasError('genes_analyse_laboratory')">
+                                {{'FORM.VALIDATION.' + hasError('genes_analyse_laboratory') | uppercase | translate}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
             </form>
         </mat-tab>
